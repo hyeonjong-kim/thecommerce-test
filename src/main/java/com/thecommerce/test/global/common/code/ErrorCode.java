@@ -78,7 +78,8 @@ public enum ErrorCode {
      * ******************************* Business Error CodeList ***************************************
      */
 
-    ALREADY_REGISTERED_EMAIL(409, "B001", "이미 회원가입된 이메일입니다.")
+    ALREADY_REGISTERED_EMAIL(409, "B001", "이미 회원가입된 이메일입니다."),
+    NOT_MATCH_PASSWORD(410, "B002", "비밀번호가 일치하지 않습니다.")
 
     ; // End
 
