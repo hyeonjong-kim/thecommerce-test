@@ -1,13 +1,22 @@
 package com.thecommerce.test.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.thecommerce.test.domain.user.dto.request.JoinRequest;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

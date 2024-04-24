@@ -62,6 +62,9 @@ public enum ErrorCode {
     // 서버가 처리 할 방법을 모르는 경우 발생
     INTERNAL_SERVER_ERROR(500, "G999", "Internal Server Error Exception"),
 
+    /**
+     * ******************************* Custom Error CodeList ***************************************
+     */
     // Transaction Insert Error
     INSERT_ERROR(200, "9999", "Insert Transaction Error Exception"),
 
@@ -71,11 +74,19 @@ public enum ErrorCode {
     // Transaction Delete Error
     DELETE_ERROR(200, "9999", "Delete Transaction Error Exception"),
 
+    /**
+     * ******************************* Business Error CodeList ***************************************
+     */
+
+    ALREADY_REGISTERED_EMAIL(409, "B001", "이미 회원가입된 이메일입니다.")
+
     ; // End
 
     /**
      * ******************************* Error Code Constructor ***************************************
      */
+
+
     // 에러 코드의 '코드 상태'을 반환한다.
     private final int status;
 
