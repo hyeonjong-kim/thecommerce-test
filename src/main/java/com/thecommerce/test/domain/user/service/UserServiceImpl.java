@@ -1,7 +1,9 @@
 package com.thecommerce.test.domain.user.service;
 
+import com.thecommerce.test.domain.user.dto.common.UserDto;
 import com.thecommerce.test.domain.user.dto.request.JoinRequest;
 import com.thecommerce.test.domain.user.dto.request.ModifyUserRequest;
+import com.thecommerce.test.domain.user.dto.response.GetUserListResponse;
 import com.thecommerce.test.domain.user.dto.response.ModifyUserResponse;
 import com.thecommerce.test.domain.user.entity.User;
 import com.thecommerce.test.domain.user.repository.UserRepository;
@@ -9,10 +11,16 @@ import com.thecommerce.test.global.common.code.ErrorCode;
 import com.thecommerce.test.global.exception.BusinessExceptionHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,12 +33,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void addUser(JoinRequest addUserRequest) {
-        // 이메일 중복인 경우 강제 에러 발생
         if(userRepository.existsByEmail(addUserRequest.getEmail()))
             throw new BusinessExceptionHandler(ErrorCode.ALREADY_REGISTERED_EMAIL);
 
-
-        // User 엔티티 생성
         User user = User.builder()
                 .loginId(addUserRequest.getLoginId())
                 .password(passwordEncoder.encode(addUserRequest.getPassword()))
@@ -40,7 +45,6 @@ public class UserServiceImpl implements UserService{
                 .email(addUserRequest.getEmail())
                 .build();
 
-        // 회원 저장
         userRepository.save(user);
     }
 
@@ -68,6 +72,29 @@ public class UserServiceImpl implements UserService{
                 .name(request.getName())
                 .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail())
+                .build();
+    }
+
+    @Override
+    public GetUserListResponse selectUsers(Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize,
+                Sort.by("joinAt").ascending()
+                .and(Sort.by("name").ascending()));
+
+        Page<User> users = userRepository.findAll(pageable);
+        if(users == null)throw new BusinessExceptionHandler("유저가 존재하지 않습니다.", ErrorCode.NOT_FOUND_ERROR);
+
+        List<UserDto> userDtos = new ArrayList<>();
+        for (User user : users) {
+            userDtos.add(UserDto.toDto(user));
+        }
+
+        return GetUserListResponse.builder()
+                .page(page)
+                .pageSize(pageSize)
+                .totalPage(users.getTotalPages())
+                .totalSize(users.getTotalElements())
+                .userList(userDtos)
                 .build();
     }
 }

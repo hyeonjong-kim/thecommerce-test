@@ -7,9 +7,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -42,4 +45,11 @@ public class User {
 
     @Column(length = 100, nullable = false, unique = true)
     private String email;
+
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime joinAt;
+
+    @LastModifiedDate
+    private LocalDateTime modifyAt;
 }
