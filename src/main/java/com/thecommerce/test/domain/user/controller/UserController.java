@@ -1,6 +1,6 @@
 package com.thecommerce.test.domain.user.controller;
 
-import com.thecommerce.test.domain.user.dto.request.JoinRequest;
+import com.thecommerce.test.domain.user.dto.request.JoinUserRequest;
 import com.thecommerce.test.domain.user.dto.request.ModifyUserRequest;
 import com.thecommerce.test.domain.user.dto.response.GetUserListResponse;
 import com.thecommerce.test.domain.user.dto.response.ModifyUserResponse;
@@ -11,11 +11,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -30,7 +28,7 @@ public class UserController {
 
     @PostMapping("/join")
     @Operation(summary = "회원가입", description = "사용자는 회원 정보를 입력하여 회원가입을 합니다.")
-    public ResponseEntity<SuccessResponse<?>> join(@Valid @RequestBody JoinRequest request) {
+    public ResponseEntity<SuccessResponse<?>> join(@Valid @RequestBody JoinUserRequest request) {
         userService.addUser(request);
         SuccessResponse<?> response = SuccessResponse.builder()
                 .data(true)

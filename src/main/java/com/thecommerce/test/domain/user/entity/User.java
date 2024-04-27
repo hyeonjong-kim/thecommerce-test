@@ -1,7 +1,6 @@
 package com.thecommerce.test.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.thecommerce.test.domain.user.dto.request.JoinRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

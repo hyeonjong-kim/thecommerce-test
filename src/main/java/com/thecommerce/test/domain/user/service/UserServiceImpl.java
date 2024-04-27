@@ -1,7 +1,7 @@
 package com.thecommerce.test.domain.user.service;
 
 import com.thecommerce.test.domain.user.dto.common.UserDto;
-import com.thecommerce.test.domain.user.dto.request.JoinRequest;
+import com.thecommerce.test.domain.user.dto.request.JoinUserRequest;
 import com.thecommerce.test.domain.user.dto.request.ModifyUserRequest;
 import com.thecommerce.test.domain.user.dto.response.GetUserListResponse;
 import com.thecommerce.test.domain.user.dto.response.ModifyUserResponse;
@@ -32,9 +32,9 @@ public class UserServiceImpl implements UserService{
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public void addUser(JoinRequest addUserRequest) {
-        if(userRepository.existsByEmail(addUserRequest.getEmail()))
-            throw new BusinessExceptionHandler(ErrorCode.ALREADY_REGISTERED_EMAIL);
+    public void addUser(JoinUserRequest addUserRequest) {
+        if(userRepository.existsByLoginId(addUserRequest.getLoginId()))
+            throw new BusinessExceptionHandler(ErrorCode.ALREADY_REGISTERED_ID);
 
         User user = User.builder()
                 .loginId(addUserRequest.getLoginId())
@@ -86,7 +86,15 @@ public class UserServiceImpl implements UserService{
 
         List<UserDto> userDtos = new ArrayList<>();
         for (User user : users) {
-            userDtos.add(UserDto.toDto(user));
+            userDtos.add(UserDto.builder()
+                    .loginId(user.getLoginId())
+                    .password(user.getPassword())
+                    .nickname(user.getNickname())
+                    .name(user.getName())
+                    .phoneNumber(user.getPhoneNumber())
+                    .email(user.getEmail())
+                    .joinAt(user.getJoinAt())
+                    .build());
         }
 
         return GetUserListResponse.builder()

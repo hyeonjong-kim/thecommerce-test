@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    boolean existsByEmail(String email);
+    boolean existsByLoginId(String email);
     Optional<User> findByLoginId(String loginId);
     Page<User> findAll(Pageable pageable);
 }

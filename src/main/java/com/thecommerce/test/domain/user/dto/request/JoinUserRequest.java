@@ -7,15 +7,13 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(description = "회원가입을 위한 요청 객체")
-public class JoinRequest {
+public class JoinUserRequest {
     @NotBlank(message = "회원의 로그인 ID를 입력해주세요.")
     @Size(max = 50, message = "로그인 ID는 최대 50이어야 합니다.")
     @Schema(description = "로그인 ID를 입력해주세요." , example = "thecommerce")
