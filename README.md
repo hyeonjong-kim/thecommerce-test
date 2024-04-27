@@ -24,10 +24,10 @@ chmod 755 gradlew
 ./gradlew build --exclude-task test
 
 //front ground
-java -jar your-application.jar --server.port=${서버 포트} --spring.profiles.active=prod --spring.datasource.url=${DB 접속 정보} --spring.datasource.username=${DB 접속 아이디} --spring.datasource.password=${DB 접속 비밀번호} --jpa.properties.hibernate.default_schema=${PostgreSQL 스키마}
+java -jar build/libs/test-0.0.1-SNAPSHOT.jar --server.port=${서버 포트} --spring.profiles.active=prod --spring.datasource.url=${DB 접속 정보} --spring.datasource.username=${DB 접속 아이디} --spring.datasource.password=${DB 접속 비밀번호} --jpa.properties.hibernate.default_schema=${PostgreSQL 스키마}
 
 //back ground
-nohup java -jar your-application.jar --server.port=${서버 포트} --spring.profiles.active=prod --spring.datasource.url=${DB 접속 정보} --spring.datasource.username=${DB 접속 아이디} --spring.datasource.password=${DB 접속 비밀번호} --jpa.properties.hibernate.default_schema=${PostgreSQL 스키마} &
+nohup java -jar build/libs/test-0.0.1-SNAPSHOT.jar --server.port=${서버 포트} --spring.profiles.active=prod --spring.datasource.url=${DB 접속 정보} --spring.datasource.username=${DB 접속 아이디} --spring.datasource.password=${DB 접속 비밀번호} --jpa.properties.hibernate.default_schema=${PostgreSQL 스키마} &
 ```
 
 ### 2.2  Docker
@@ -53,7 +53,7 @@ CMD ["--spring.profiles.active=prod", "--server.port=8080", "--spring.datasource
 
 docker build -t ${이미지 이름} ./
  
-sudo docker run -d -p ${사용 포트}:8080 ${이미지 이름}
+docker run -d -p ${사용 포트}:8080 ${이미지 이름}
 ```
 
 ## 3. API 명세 접속 방법
