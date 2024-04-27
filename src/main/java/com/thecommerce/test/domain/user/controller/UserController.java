@@ -78,7 +78,7 @@ public class UserController {
         GetUserListResponse getUserListResponse = userService.selectUsers(page, pageSize);
         SuccessResponse<?> response = SuccessResponse.builder()
                 .status(SuccessCode.SELECT_SUCCESS.getStatus())
-                .message(SuccessCode.SELECT_SUCCESS.getMessage())
+                .message("회원 목록 조회에 성공했습니다.")
                 .data(getUserListResponse)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
