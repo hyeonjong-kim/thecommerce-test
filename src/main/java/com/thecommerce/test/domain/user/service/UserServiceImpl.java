@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void addUser(JoinUserRequest addUserRequest) {
         if(userRepository.existsByLoginId(addUserRequest.getLoginId()))
-            throw new BusinessExceptionHandler(ErrorCode.ALREADY_REGISTERED_ID);
+            throw new BusinessExceptionHandler("이미 존재하는 아이디입니다.", ErrorCode.ALREADY_REGISTERED_ID);
 
         User user = User.builder()
                 .loginId(addUserRequest.getLoginId())
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService{
                 .and(Sort.by("name").ascending()));
 
         Page<User> users = userRepository.findAll(pageable);
-        if(users == null)throw new BusinessExceptionHandler("유저가 존재하지 않습니다.", ErrorCode.NOT_FOUND_ERROR);
+        if(users == null)throw new BusinessExceptionHandler("회원이 존재하지 않습니다.", ErrorCode.NOT_FOUND_ERROR);
 
         List<UserDto> userDtos = new ArrayList<>();
         for (User user : users) {

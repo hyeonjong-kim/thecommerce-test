@@ -39,10 +39,10 @@ public class User {
     @Column(nullable = false, length = 10)
     private String name;
 
-    @Column(length = 15, nullable = false, unique = true)
+    @Column(length = 15, nullable = false)
     private String phoneNumber;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 100, nullable = false)
     private String email;
 
     @CreatedDate
