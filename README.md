@@ -10,6 +10,8 @@ Spring boot: 2.7.8
 
 Docker: 26.0.2
 
+PostgreSQL: 12.18
+
 ## 2. 배포
 
 ### 2.1  On-premise
