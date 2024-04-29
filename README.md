@@ -60,4 +60,4 @@ docker run -d -p ${사용 포트}:8080 ${이미지 이름}
 
 ## 3. API 명세 접속 방법
 
-→ http://${host}:${port}/swagger-ui/index.htm
+→ http://${host}:${port}/swagger-ui/index.html
